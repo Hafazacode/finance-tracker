@@ -1,0 +1,49 @@
+name: Backend CI
+
+on:
+  push:
+    branches: [backend]
+  pull_request:
+    branches: [backend]
+
+jobs:
+  backend-ci:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Debug ESLint Binary
+        run: |
+          ls -l node_modules/.bin/eslint || echo "eslint binary not found"
+          file node_modules/.bin/eslint || echo "file info not available"
+          npx eslint --version || echo "npx eslint failed"
+
+      - name: Lint code
+        run: |
+          if [ -f .eslintrc.js ] || [ -f .eslintrc.json ] || [ -f eslint.config.mjs ]; then
+            npx eslint .
+          else
+            echo "No ESLint config found, skipping lint"
+          fi
+
+      - name: Run tests
+        run: |
+          if [ -d "__tests__" ] || [ -f "jest.config.js" ]; then
+            npm test
+          else
+            echo "No tests found, skipping tests"
+          fi
