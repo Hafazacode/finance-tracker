@@ -122,6 +122,9 @@ function App() {
     localStorage.setItem('availableMonths', JSON.stringify(availableMonths));
   }, [availableMonths]);
 
+  useEffect(() => {
+    console.log("Daftar Kategori Saat Ini:", categories);
+  }, [categories]);
 
   const fetchData = useCallback(async () => {
     setIsLoading(true);
@@ -156,10 +159,10 @@ function App() {
       const incomeTxs = transactionData.filter(tx => tx.type === 'income');
       setTransactions(expenseTxs);
       setPendapatan(incomeTxs);
-
+      
       if (budgetDataFiltered.length === 0) {
         setCategories([]);
-        console.log(`[FRONTEND] No active budgets found for ${selectedMonth}, setting categories to empty. ${categories}`);
+        console.log(`[FRONTEND] No active budgets found for ${selectedMonth}, setting categories to empty.`);
       } else {
         const uniqueCategories = {};
         budgetDataFiltered.forEach(budget => {
