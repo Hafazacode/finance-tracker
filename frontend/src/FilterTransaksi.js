@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Trash } from "lucide-react";
 
 function FilterTransaksi({ budgets, akun, tab, transactions, setTransactions, type, onDelete, onEdit }) {
   const [expandedGroups, setExpandedGroups] = useState({});

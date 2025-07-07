@@ -159,7 +159,7 @@ function App() {
 
       if (budgetDataFiltered.length === 0) {
         setCategories([]);
-        console.log(`[FRONTEND] No active budgets found for ${selectedMonth}, setting categories to empty.`);
+        console.log(`[FRONTEND] No active budgets found for ${selectedMonth}, setting categories to empty. ${categories}`);
       } else {
         const uniqueCategories = {};
         budgetDataFiltered.forEach(budget => {

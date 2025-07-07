@@ -37,6 +37,7 @@ const navigate = useNavigate();
     fetchDebts();
   }, [fetchDebts]);
 
+  console.log("Status Error Saat Ini:", error);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -77,6 +78,7 @@ const navigate = useNavigate();
         fetchDebts(); // Refresh data
       } catch (err) {
         alert(err.message);
+        
       }
     }
   };

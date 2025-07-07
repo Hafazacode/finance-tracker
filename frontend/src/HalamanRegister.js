@@ -1,7 +1,7 @@
 // frontend/src/pages/Register.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { register } from './apiservice'; // Pastikan path benar
 
 // Import ikon mata dari lucide-react
