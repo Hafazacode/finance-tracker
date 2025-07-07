@@ -1,5 +1,5 @@
 // apiservice.js
-const API_URL = 'http://localhost:5000/api'; // Pastikan ini mengarah ke backend Anda
+const API_URL = process.env.REACT_APP_API_URL; // Pastikan ini mengarah ke backend Anda
 
 /**
  * Mengambil token otentikasi dari localStorage.
