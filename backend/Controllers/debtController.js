@@ -8,7 +8,7 @@ const getDebts = async (req, res) => {
       [req.user.id]
     );
     res.json(debts);
-  } catch (error) {
+  } catch { // <--- Changed from catch (error) to catch
     res.status(500).json({ message: 'Server Error' });
   }
 };
@@ -25,7 +25,7 @@ const createDebt = async (req, res) => {
       [req.user.id, person_name, type, amount, due_date || null, notes]
     );
     res.status(201).json({ id: result.insertId, ...req.body, status: 'belum lunas' });
-  } catch (error) {
+  } catch { // <--- Changed from catch (error) to catch
     res.status(500).json({ message: 'Server Error' });
   }
 };
@@ -42,7 +42,7 @@ const updateDebtStatus = async (req, res) => {
       return res.status(404).json({ message: 'Data tidak ditemukan' });
     }
     res.json({ message: 'Status berhasil diubah menjadi lunas' });
-  } catch (error) {
+  } catch { // <--- Changed from catch (error) to catch
     res.status(500).json({ message: 'Server Error' });
   }
 };
@@ -59,7 +59,7 @@ const deleteDebt = async (req, res) => {
       return res.status(404).json({ message: 'Data tidak ditemukan' });
     }
     res.json({ message: 'Data berhasil dihapus' });
-  } catch (error) {
+  } catch { // <--- Changed from catch (error) to catch
     res.status(500).json({ message: 'Server Error' });
   }
 };
