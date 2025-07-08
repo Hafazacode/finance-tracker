@@ -1,4 +1,4 @@
-name: React CI
+name: Full Stack CI
 
 on:
   push:
@@ -7,15 +7,17 @@ on:
     branches: [main]
 
 jobs:
-  build-and-test:
+  # 🔧 BACKEND CI
+  backend-ci:
+    name: 🔧 Backend CI
     runs-on: ubuntu-latest
 
     defaults:
       run:
-        working-directory: frontend
+        working-directory: backend
 
     steps:
-      - name: 🛎️ Checkout repo
+      - name: 📥 Checkout repository
         uses: actions/checkout@v4
 
       - name: ⚙️ Setup Node.js
@@ -23,11 +25,48 @@ jobs:
         with:
           node-version: 20
 
-      - name: 📦 Install dependencies
+      - name: 📦 Install dependencies (backend)
         run: npm ci
 
-      - name: 🏗️ Build project
+      - name: 🔍 Lint backend code
+        run: |
+          if [ -f .eslintrc.js ] || [ -f .eslintrc.json ] || [ -f eslint.config.mjs ]; then
+            npx eslint .
+          else
+            echo "No ESLint config found, skipping lint"
+          fi
+
+      - name: 🧪 Run backend tests
+        run: |
+          if [ -d "__tests__" ] || [ -f "jest.config.js" ]; then
+            npm test
+          else
+            echo "No tests found, skipping tests"
+          fi
+
+  # 🖼️ FRONTEND CI
+  frontend-ci:
+    name: 🖼️ Frontend CI
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: frontend
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 📦 Install dependencies (frontend)
+        run: npm ci
+
+      - name: 🏗️ Build frontend
         run: npm run build
 
-      - name: ✅ Run tests (optional)
+      - name: ✅ Run frontend tests (optional)
         run: npm test --if-present
