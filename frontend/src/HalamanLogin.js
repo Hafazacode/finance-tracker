@@ -55,7 +55,7 @@ const Welcome = () => {
                         className="space-y-6"
                     >
                         <h2 className="text-3xl font-bold text-gray-700">Log In</h2>
-                        <p className="text-gray-500">Loginn your account to start the service</p>
+                        <p className="text-gray-500">Login your account to start the service</p>
 
                         <form onSubmit={handleLogin} className="space-y-4">
                             <div>
